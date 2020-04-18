@@ -9,7 +9,7 @@ app.listen(process.env.PORT, () => {
   console.log('Server running on port', process.env.PORT)
 })
 
-app.get('/', (res) => {
+app.get('/', (req, res) => {
   res.send(`Usage: 
 	To add a score: https://agile-citadel-44322.herokuapp.com/<game>/add/<username>/<score>/
 	To list scores: https://agile-citadel-44322.herokuapp.com/<game>/<topOrBottom>/<count>/`)
