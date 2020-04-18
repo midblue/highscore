@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
   res.send(`Usage: \n
 	To add a score: https://agile-citadel-44322.herokuapp.com/[game]/add/[username]/[score]/\n
 	To list scores: https://agile-citadel-44322.herokuapp.com/[game]/[topOrBottom]/[count]/\n
+	Example: https://agile-citadel-44322.herokuapp.com/test/top/3/
 	`)
 })
 
