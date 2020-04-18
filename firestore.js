@@ -47,7 +47,12 @@ module.exports = {
       .then((snapshot) => {
         console.log(snapshot.docs.length, 'scores returned', game)
         if (snapshot.docs.length === 0) return
-        return snapshot.docs.map((d) => d.data())
+        return snapshot.docs
+          .map((d) => {
+            const data = d.data()
+            return data.name + ',' + data.score
+          })
+          .join('\n')
       })
       .catch((err) => {
         return console.log(err)
