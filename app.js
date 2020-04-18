@@ -11,8 +11,8 @@ app.listen(process.env.PORT, () => {
 
 app.get('/', (req, res) => {
   res.send(`Usage: 
-	To add a score: https://agile-citadel-44322.herokuapp.com/<game>/add/<username>/<score>/
-	To list scores: https://agile-citadel-44322.herokuapp.com/<game>/<topOrBottom>/<count>/`)
+	To add a score: https://agile-citadel-44322.herokuapp.com/[game]/add/[username]/[score]/
+	To list scores: https://agile-citadel-44322.herokuapp.com/[game]/[topOrBottom]/[count]/`)
 })
 
 app.get('/:game/add/:name/:score/', async (req, res, next) => {
