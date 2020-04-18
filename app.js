@@ -10,9 +10,10 @@ app.listen(process.env.PORT, () => {
 })
 
 app.get('/', (req, res) => {
-  res.send(`Usage: 
-	To add a score: https://agile-citadel-44322.herokuapp.com/[game]/add/[username]/[score]/
-	To list scores: https://agile-citadel-44322.herokuapp.com/[game]/[topOrBottom]/[count]/`)
+  res.send(`Usage: \n
+	To add a score: https://agile-citadel-44322.herokuapp.com/[game]/add/[username]/[score]/\n
+	To list scores: https://agile-citadel-44322.herokuapp.com/[game]/[topOrBottom]/[count]/\n
+	`)
 })
 
 app.get('/:game/add/:name/:score/', async (req, res, next) => {
