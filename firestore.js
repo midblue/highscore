@@ -50,7 +50,7 @@ module.exports = {
         return snapshot.docs
           .map((d) => {
             const data = d.data()
-            return data.name + ',' + data.score
+            return data.name.replace(/[,"]/g, '') + ',' + data.score
           })
           .join('\n')
       })
