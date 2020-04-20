@@ -24,7 +24,7 @@ app.get('/:game/add/:name/:score/', async (req, res, next) => {
   const game = req.params.game
   const name = req.params.name.replace(
     /(fuck|shit|bitch|ass|cunt|fag|nigger|spic|twat)/g,
-    ''
+    '***'
   )
   const score = parseFloat(req.params.score)
   if (!game || !name || (!score && score !== 0))
