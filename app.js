@@ -1,9 +1,12 @@
 const express = require('express')
+const cors = require('cors')
 require('dotenv').config()
 
 const db = require('./firestore')
 
 const app = express()
+
+app.use(cors())
 
 app.listen(process.env.PORT, () => {
   console.log('Server running on port', process.env.PORT)
@@ -19,7 +22,10 @@ app.get('/', (req, res) => {
 
 app.get('/:game/add/:name/:score/', async (req, res, next) => {
   const game = req.params.game
-  const name = req.params.name
+  const name = req.params.name.replace(
+    /(fuck|shit|bitch|ass|cunt|fag|nigger|spic|twat)/g,
+    ''
+  )
   const score = parseFloat(req.params.score)
   if (!game || !name || (!score && score !== 0))
     return res.sendStatus(403)
