@@ -2,12 +2,18 @@
 
 > Created for use in [my team's Ludum Dare 46 project](https://ldjam.com/events/ludum-dare/46/final-flower-petals-of-a-lost-age), this is a dead-simple API for globally displaying and adding high scores in your game.
 
-Made to be run as a Heroku instance, this app uses Firebase (Firestore) and a simple express server to expose a few simple endpoints to be queried from anywhere!
+Made to be run as a Heroku instance, this app uses Firebase (Firestore) and a simple Express server to expose a few simple endpoints to be queried from anywhere!
 
 ## Endpoints
 
-- Add a score: `[heroku URL]/[game]/add/[username]/[score]/`
-- List scores: `[heroku URL]/[game]/[topOrBottom]/[count]/`
+- Add a score: `[heroku URL]/[uniqueLeaderboardId]/add/[username]/[score]/`
+- List scores: `[heroku URL]/[uniqueLeaderboardId]/[topOrBottom]/[count]/`
+
+### Notes:
+- `uniqueLeaderboardId` can be any string. This means that you can set up multiple leaderboards on the same server — i.e. 'level1', 'level2', etc.
+- `score`s can be any integer or float.
+- `topOrBottom` is either 'top' or 'bottom' depending on whether you want the lowest or the highest scores.
+- `count` must be an integer.
 
 ## Setup
 
