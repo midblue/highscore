@@ -30,3 +30,38 @@ From there, you can query your local server and confirm that everything is runni
 Getting it running on Heroku is easy and free, check [this link](https://devcenter.heroku.com/articles/deploying-nodejs) for guidance.
 
 Have fun!
+
+
+## Example Unity Usage
+
+```c#
+using UnityEngine.Networking;
+
+...
+
+IEnumerator GetHighScores()
+{
+	string url = baseURL + leaderboardName + "/bottom/" + scoreCount.ToString() + '/';
+	using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+	{
+		yield return webRequest.SendWebRequest();
+
+		if (webRequest.isNetworkError)
+		{
+			Debug.Log("Network Error: " + webRequest.error);
+		}
+		else if (webRequest.downloadHandler.text.Substring(0, 1) == "<" || webRequest.downloadHandler.text == "Forbidden")
+		{
+			Debug.Log("Request Failed: " + webRequest.downloadHandler.text);
+		}
+		else if (webRequest.downloadHandler.text == "Internal Server Error")
+		{
+			Debug.Log("No high scores at this endpoint yet.");
+		}
+		else
+		{
+			Debug.Log("Received high scores: " + webRequest.downloadHandler.text);
+    }
+  }
+}
+```
