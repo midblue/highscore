@@ -14,32 +14,41 @@ app.listen(process.env.PORT, () => {
 
 app.get('/', (req, res) => {
   res.send(`Usage: \n
-	To add a score: [this url]/[game]/add/[username]/[score]/\n
-	To list scores: [this url]/[game]/[topOrBottom]/[count]/
+	To add a score: [this url]/[leaderboard]/add/[username]/[score]/\n
+	To list scores: [this url]/[leaderboard]/[topOrBottom]/[count]/
 	`)
 })
 
-app.get('/:game/add/:name/:score/', async (req, res, next) => {
-  const game = req.params.game
-  const name = req.params.name.replace(
-    /(fuck|shit|bitch|ass|cunt|fag|nigger|spic|twat)/g,
-    '***'
-  )
-  const score = parseFloat(req.params.score)
-  if (!game || !name || (!score && score !== 0))
-    return res.sendStatus(403)
-  const success = await db.addScore({ game, name, score })
-  if (success) res.sendStatus(200)
-  else res.sendStatus(500)
-})
+app.get(
+  '/:leaderboard/add/:name/:score/:replace?',
+  async (req, res) => {
+    const leaderboard = req.params.leaderboard
+    const name = req.params.name.replace(
+      /(fuck|shit|bitch|ass|cunt|fag|nigger|spic|twat)/g,
+      '***'
+    )
+    const score = parseFloat(req.params.score)
+    const replace = !(req.params.replace === 'false')
+    if (!leaderboard || !name || (!score && score !== 0))
+      return res.sendStatus(403)
+    const success = await db.addScore({
+      leaderboard,
+      name,
+      score,
+      replace,
+    })
+    if (success) res.sendStatus(200)
+    else res.sendStatus(500)
+  }
+)
 
-app.get('/:game/:topOrBottom/:count/', async (req, res, next) => {
-  const game = req.params.game
+app.get('/:leaderboard/:topOrBottom/:count/', async (req, res) => {
+  const leaderboard = req.params.leaderboard
   const top = req.params.topOrBottom.toLowerCase() !== 'bottom'
   const count = parseInt(req.params.count)
-  if (!game || !count) return res.sendStatus(403)
+  if (!leaderboard || !count) return res.sendStatus(403)
   if (count > 100) count = 100
-  const scores = await db.getScores({ game, top, count })
+  const scores = await db.getScores({ leaderboard, top, count })
   if (!scores) return res.sendStatus(500)
   return res.json(scores)
 })
