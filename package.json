@@ -1,7 +1,7 @@
 {
   "name": "highscore",
   "version": "1.0.0",
-  "description": "",
+  "description": "A dead-simple API to add and get high scores for your game using Firebase and Express.",
   "main": "index.js",
   "scripts": {
     "dev": "heroku local web",
