@@ -6,12 +6,14 @@ Made to be run as a Heroku instance, this app uses Firebase (Firestore) and a si
 
 ## Endpoints
 
-- Add a score: `[heroku URL]/[uniqueLeaderboardId]/add/[username]/[score]/`
+- Add a score: `[heroku URL]/[uniqueLeaderboardId]/add/[username]/[score]/[replace?]/[lowerIsBetter?]`
 - List scores: `[heroku URL]/[uniqueLeaderboardId]/[topOrBottom]/[count]/`
 
 ### Notes:
 - `uniqueLeaderboardId` can be any string. This means that you can set up multiple leaderboards on the same server — i.e. 'level1', 'level2', etc.
 - `score`s can be any integer or float.
+- `replace` is optional, and can be set to `true` or `false`. It defaults to `true`. If set to `false`, it will allow adding multiple scores by the same name.
+- `lowerIsBetter` is optional, and defaults to `true`. This defines the replace criteria for scores, whether it should keep with the lower score or the higher one.
 - `topOrBottom` is either 'top' or 'bottom' depending on whether you want the lowest or the highest scores.
 - `count` must be an integer.
 

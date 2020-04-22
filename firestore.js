@@ -25,7 +25,13 @@ module.exports = {
   getScores,
 }
 
-async function addScore({ leaderboard, name, score, replace }) {
+async function addScore({
+  leaderboard,
+  name,
+  score,
+  replace,
+  lowerIsBetter = true,
+}) {
   const collection = await getLeaderboardScoreCollection(leaderboard)
 
   const addNewScore = async () => {
@@ -49,6 +55,19 @@ async function addScore({ leaderboard, name, score, replace }) {
         if (snapshot.empty) {
           return await addNewScore()
         } else {
+          console.log(
+            snapshot.docs[0].data().score,
+            score,
+            lowerIsBetter
+          )
+          if (
+            (snapshot.docs[0].data().score < score &&
+              lowerIsBetter) ||
+            (snapshot.docs[0].data().score > score && !lowerIsBetter)
+          ) {
+            console.log('skipping score because it is worse')
+            return true
+          }
           const userEntryId = snapshot.docs[0].id
           console.log('updated score', leaderboard, name, score)
           return await collection

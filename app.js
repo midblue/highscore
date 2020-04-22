@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 })
 
 app.get(
-  '/:leaderboard/add/:name/:score/:replace?',
+  '/:leaderboard/add/:name/:score/:replace?/:lowerIsBetter?',
   async (req, res) => {
     const leaderboard = req.params.leaderboard
     const name = req.params.name.replace(
@@ -29,6 +29,7 @@ app.get(
     )
     const score = parseFloat(req.params.score)
     const replace = !(req.params.replace === 'false')
+    const lowerIsBetter = !(req.params.lowerIsBetter === 'false')
     if (!leaderboard || !name || (!score && score !== 0))
       return res.sendStatus(403)
     const success = await db.addScore({
@@ -36,6 +37,7 @@ app.get(
       name,
       score,
       replace,
+      lowerIsBetter,
     })
     if (success) res.sendStatus(200)
     else res.sendStatus(500)
