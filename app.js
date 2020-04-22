@@ -14,9 +14,8 @@ app.listen(process.env.PORT, () => {
 
 app.get('/', (req, res) => {
   res.send(`Usage: \n
-	To add a score: https://agile-citadel-44322.herokuapp.com/[game]/add/[username]/[score]/\n
-	To list scores: https://agile-citadel-44322.herokuapp.com/[game]/[topOrBottom]/[count]/\n
-	Example: https://agile-citadel-44322.herokuapp.com/test/top/3/
+	To add a score: [this url]/[game]/add/[username]/[score]/\n
+	To list scores: [this url]/[game]/[topOrBottom]/[count]/
 	`)
 })
 
@@ -41,7 +40,6 @@ app.get('/:game/:topOrBottom/:count/', async (req, res, next) => {
   if (!game || !count) return res.sendStatus(403)
   if (count > 100) count = 100
   const scores = await db.getScores({ game, top, count })
-  console.log('scores:', scores)
   if (!scores) return res.sendStatus(500)
   return res.json(scores)
 })
