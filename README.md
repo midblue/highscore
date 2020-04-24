@@ -6,8 +6,8 @@ Made to be run as a Heroku instance, this app uses Firebase (Firestore) and an E
 
 ## Endpoints
 
-- Add a score: `[heroku URL]/[uniqueLeaderboardId]/add/[username]/[score]/[replace?]/[lowerIsBetter?]`
-- List scores: `[heroku URL]/[uniqueLeaderboardId]/[topOrBottom]/[count]/`
+- Add a score: `GET [heroku URL]/[uniqueLeaderboardId]/add/[username]/[score]/[replace?]/[lowerIsBetter?]`
+- List scores: `GET [heroku URL]/[uniqueLeaderboardId]/[topOrBottom]/[count]/`
 
 ### Notes:
 - `uniqueLeaderboardId` can be any string. This means that you can set up multiple leaderboards on the same server — i.e. 'level1', 'level2', etc.
